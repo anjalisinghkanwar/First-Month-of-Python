@@ -1,0 +1,65 @@
+
+import random
+#from art import logo
+#print(logo)
+
+list_of_numbers = []
+
+for numbers in range(1,101):
+  list_of_numbers += [numbers]
+# print(list_of_numbers)
+
+chosen_number = random.choice(list_of_numbers)
+
+def easy():
+  global chosen_number
+  for n in range(0,10):
+    print(f"You have {10 - n} attempts remaining to guess the number.")
+    guess = int(input("Make a guess."))
+    if guess == chosen_number:
+      print(f"You are correct! It is {chosen_number}! Congratulations, you won!")
+      return ()
+    elif guess!= chosen_number and n == 9:
+      print("You've run out of guesses, you loose!")
+    elif guess < chosen_number:
+      print("Too low. \n Guess again.")
+    elif guess > chosen_number:
+      print("Too high. \n Guess again. ")
+    else:
+      print("You've run out of guesses! You loose.")
+  return()
+    
+
+def hard():
+  global chosen_number
+  for n in range(0,5):
+    print(f"You have {5 - n} attempts remaining to guess the number.")
+    guess = int(input("Make a guess."))
+    if guess == chosen_number:
+      print(f"You are correct! It is {chosen_number}! Congratulations, you won!")
+      return()
+    elif guess!= chosen_number and n == 4:
+      print("You've run out of guesses, you loose!")
+    elif guess < chosen_number:
+      print("Too low. \n Guess again.")
+    elif guess > chosen_number:
+      print("Too high. \n Guess again. ")
+    
+  return()
+
+
+
+print("Welcome to the number guessing game! \nI am thinking of a number between 1 and 100. \n")
+
+user_option = input("Choose a difficulty. Type 'easy' or 'hard'. \n")
+
+if user_option == "easy":
+  easy()
+elif user_option == "hard":
+  hard()
+  
+  
+
+
+  
+
