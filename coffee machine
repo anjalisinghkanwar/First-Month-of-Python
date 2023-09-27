@@ -1,0 +1,129 @@
+MENU = {
+    "espresso": {
+        "ingredients": {
+            "water": 50,
+            "coffee": 18,
+        },
+        "cost": 1.5,
+    },
+    "latte": {
+        "ingredients": {
+            "water": 200,
+            "milk": 150,
+            "coffee": 24,
+        },
+        "cost": 2.5,
+    },
+    "cappuccino": {
+        "ingredients": {
+            "water": 250,
+            "milk": 100,
+            "coffee": 24,
+        },
+        "cost": 3.0,
+    }
+}
+
+resources = {
+    "water": 300,
+    "milk": 200,
+    "coffee": 100,
+}
+
+money = 0
+coffee_machine_on = True
+
+
+def total_money_inserted(quarter, dime, nickle, penny):
+    """calculate the amount of money user gave"""
+    total_quarter = quarter*0.25
+    total_dime = dime*0.1
+    total_nickle = nickle*0.05
+    total_penny = penny*0.01
+    total_amount = total_quarter + total_dime + total_nickle + total_penny
+    return total_amount
+
+
+def report(order_ingredients):
+    """Make a function to calculate the report"""
+    for item in order_ingredients:
+        if order_ingredients[item] > resources[item]:
+            return False
+        return True
+
+
+while coffee_machine_on:
+    choice = input("What would you like? (espresso/ latte/ cappuccino): ").lower()
+    if choice == "espresso":
+        drink = MENU[choice]
+        if not report(drink["ingredients"]):
+            print("Sorry, not enough resources!")
+        elif report(drink["ingredients"]):
+            print("Please insert coins.")
+            quarter = int(input("How many quarters? "))
+            dime = int(input("How many dimes? "))
+            nickle = int(input("How many nickles? "))
+            penny = int(input("How many pennies? "))
+            total_money_inserted(quarter, dime, nickle, penny)
+            money_returned = round(total_money_inserted(quarter, dime, nickle, penny) - 1.5, 2)
+            if money_returned < 0:
+                print("Sorry, that's not enough money. Money refunded!")
+            else:
+                resources["water"] -= 50
+                resources["coffee"] -= 18
+                print(f"Here's your espresso ☕. Here's your balance amount: {money_returned}$")
+                money += 1.5
+        coffee_machine_on = True
+    elif choice == "latte":
+        drink = MENU[choice]
+        if not report(drink['ingredients']):
+            print("Sorry, there are not enough resources!")
+        elif report(drink['ingredients']):
+            print("Please insert coins.")
+            quarter = int(input("How many quarters? "))
+            dime = int(input("How many dimes? "))
+            nickle = int(input("How many nickles? "))
+            penny = int(input("How many pennies? "))
+            total_money_inserted(quarter, dime, nickle, penny)
+            money_returned = round(total_money_inserted(quarter, dime, nickle, penny) - 2.5, 2)
+            coffe_machine_on = True
+            if money_returned < 0:
+                print("Sorry, that's not enough money. Money refunded!")
+            else:
+                print(f"Here's your latte ☕. Here's your balance amount: {money_returned}$")
+                money += 2.5
+                resources["water"] -= 200
+                resources["milk"] -= 150
+                resources["coffee"] -= 24
+    elif choice == "cappuccino":
+      drink = MENU[choice]
+      if not report(drink['ingredients']):
+          print("Sorry, not enough resources!")
+      elif report(drink['ingredients']):
+        print("Please insert coins.")
+        quarter = int(input("How many quarters? "))
+        dime = int(input("How many dimes? "))
+        nickle = int(input("How many nickles? "))
+        penny = int(input("How many pennies? "))
+        total_money_inserted(quarter, dime, nickle, penny)
+        money_returned = round(total_money_inserted(quarter, dime, nickle, penny) - 3, 2)
+        coffe_machine_on = True
+      elif money_returned < 0:
+          print("Sorry, that's not enough money. Money refunded!")
+      else:
+          print(f"Here's your Cappuccino ☕. Here's your balance amount: {money_returned}$")
+          money += 3
+          resources["water"] -= 250
+          resources["milk"] -= 100
+          resources["coffee"] -= 24
+    elif choice == "report":
+        print(f"water: {resources['water']}")
+        print(f"milk: {resources['milk']}")
+        print(f"coffee: {resources['coffee']}")
+        print(f"money: {money}$")
+    elif choice == "off":
+        coffee_machine_on = False
+    else:
+      print("You gave a wrong value, choose again! ")
+      coffee_machine_on = True
+
